@@ -1,9 +1,12 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
-const secret = 'yourSecretKey';
+const secret = process.env.JWT_SECRET;
+
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;

@@ -17,8 +17,8 @@ const Login = () => {
       });
   
       localStorage.setItem('token', res.data.token); // store token
-      alert('Login successful');
-      navigate('/main'); // redirect to protected page
+    //   alert('Login successful');
+      navigate('/dashboard'); 
     } catch (err) {
       alert(err.response?.data?.msg || 'Login failed');
     }

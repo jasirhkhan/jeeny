@@ -10,12 +10,12 @@ const Dashboard = () => {
   const fetchUser = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/'); // redirect if no token
+      navigate('/');
       return;
     }
 
     try {
-      const res = await axios.get('http://localhost:3000/me', {
+      const res = await axios.get('http://localhost:3000/auth/me', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -24,7 +24,7 @@ const Dashboard = () => {
     } catch (err) {
       console.error(err);
       localStorage.removeItem('token');
-      navigate('/'); // redirect if token is invalid
+      navigate('/');
     }
   };
 
@@ -37,6 +37,32 @@ const Dashboard = () => {
     fetchUser();
   }, []);
 
+  const renderRiderDashboard = () => (
+    <>
+      <h1>Welcome, {user.username}!</h1>
+      <p>Where would you like to go today?</p>
+
+      <div className="dashboard-actions">
+        <button className="action-btn">Book a Ride</button>
+        <button className="action-btn">Your Rides</button>
+        <button className="action-btn">Profile</button>
+      </div>
+    </>
+  );
+
+  const renderDriverDashboard = () => (
+    <>
+      <h1>Hello, Driver {user.username}!</h1>
+      <p>Ready to pick up some riders?</p>
+
+      <div className="dashboard-actions">
+        <button className="action-btn">View Ride Requests</button>
+        <button className="action-btn">Your Completed Rides</button>
+        <button className="action-btn">Driver Profile</button>
+      </div>
+    </>
+  );
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -46,16 +72,7 @@ const Dashboard = () => {
 
       <main className="dashboard-main">
         {user ? (
-          <>
-            <h1>Welcome, {user.username}!</h1>
-            <p>Where would you like to go today?</p>
-
-            <div className="dashboard-actions">
-              <button className="action-btn">Book a Ride</button>
-              <button className="action-btn">Your Rides</button>
-              <button className="action-btn">Profile</button>
-            </div>
-          </>
+          user.role === 'driver' ? renderDriverDashboard() : renderRiderDashboard()
         ) : (
           <p>Loading user data...</p>
         )}

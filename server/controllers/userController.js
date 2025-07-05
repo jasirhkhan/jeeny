@@ -22,13 +22,13 @@ export const loginUser = async (req, res) => {
 };
 
 export const registerUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
   try {
     const existing = await User.findOne({ username });
     if (existing) return res.status(400).json({ msg: 'Username already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword });
+    const user = new User({ username, password: hashedPassword,role});
     await user.save();
 
     res.status(201).json({ msg: 'Signup successful', user });
