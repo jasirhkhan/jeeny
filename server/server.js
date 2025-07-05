@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import userRoutes from './routes/userRoutes.js';  
 import authRoutes from './middleware/auth.js'
+import rideRoutes from './routes/rideRoutes.js';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors())
   
 app.use('/', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/rides', rideRoutes);
 
 mongoose.connect(process.env.MONG_URI)
 .then(()=>{
