@@ -1,109 +1,231 @@
-body {
-    background-color: rgba(34, 34, 40, 1);
-}
-.login-page {
-    text-align: center;
-    margin-top: 100px;
-    margin-left: 500px;
-    margin-right: 500px;
-    padding-top: 100px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 100px;
+/* styles/login.css */
+
+/* --- Base Body and Root Element Styling --- */
+/* Ensures the entire page is a flex container to center the login/signup card */
+html, body, #root {
+    height: 100%; /* Make sure html, body, and your root React div (#root) fill the viewport height */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Global box-sizing for consistent padding/border calculation */
   }
-::placeholder{
-    color: white;
-    font-weight:lighter;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.login-header{
-    font-weight: bold; 
-    padding: 20px 20px 20px 20px;
-    font-size: 30px;
-    color:white;
-    text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.form {
-    background-color: rgba(55, 55, 59, 1);
-    border-radius: 5px;
-    width:50%;
-    height:50%;
-    margin-left: -20px;
-    padding: 0px 100px 20px 100px;
-
-    /* justify-content: center; */
-    /* align-items: center; */
-    text-align: center;
-}
-
-.user-inp {
-    border-radius: 15px;
-    background-color: rgba(112, 112, 115, 1);
-    color:white;
-    padding: 10px 10px 10px 10px;
-    margin-top:30px;
-    width: 250px;
-    border-style: solid;
-    margin-left: -60px;
-    
-
-    /* align-items: center; */
-    display: inline-block;
-    vertical-align: middle;
-
-}
-
-.pass-inp {
-    border-radius: 15px;
-    background-color: rgba(112, 112, 115, 1);
-    color:white;
-    padding: 10px 10px 10px 10px;
-    margin-top:10px;
-    margin-left: -60px;
-    width: 250px;
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: lighter;
-    border-style: solid;
-
-}
-
-.sub-button {
-    margin-top: 20px;
-    border-radius:15px;
-    
-    background-color: rgba(154, 198, 30, 1);
-    color: white;
-    padding: 5px 5px 5px;
-    margin-bottom:20px ;
-    width: 100px;
-    border-style: solid;
-    border-color: rgba(154, 198, 30, 1);
-
-}
-
-.question {
-    margin-top: 10px;
-    color: white;
-}
-
-a{
-    color: rgba(154, 198, 30, 1);
-}
-
-.lib-name{
-    color: rgba(154, 198, 30, 1);
-    font-size: 30px;
-    font-weight: lighter;
-
-
-}
-
-.sub-button:hover{
-    background-color: rgba(153, 198, 30, 0.856);
-    /* color: rgba(154, 198, 30, 1) ; */
+  
+  body {
+    font-family: 'Segoe UI', sans-serif; /* Consistent font */
+    background-color: #f9f9f9; /* Light background matching dashboard */
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure it fills the entire viewport height */
+    overflow: auto; /* Allow scrolling if content is taller than viewport */
+  }
+  
+  /* --- Login/Signup Container Card Styling --- */
+  .login-container {
+    background-color: #ffffff; /* White background for the card */
+    padding: 40px 50px; /* Generous padding inside the card for breathing room */
+    border-radius: 12px; /* Softly rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft, subtle shadow for depth */
+    text-align: center; /* Center text content within the card */
+    width: 100%; /* Take full width up to max-width */
+    max-width: 420px; /* Maximum width for the login/signup card */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    animation: fadeIn 0.8s ease-out; /* Apply a fade-in animation */
+    margin: 20px; /* Add some margin for smaller screens, prevents sticking to edges */
+  }
+  
+  /* Keyframe animation for a smooth fade-in effect */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); } /* Start slightly lower and invisible */
+    to { opacity: 1; transform: translateY(0); } /* End at original position and fully visible */
+  }
+  
+  /* --- Logo Styling --- */
+  .login-logo {
+    font-size: 48px; /* Larger font size for the brand logo */
+    font-weight: bold; /* Bold text for the logo */
+    color: #000; /* Black color for the main part of the logo */
+    margin-bottom: 30px; /* Ample space below the logo */
+  }
+  
+  .login-logo .dot {
+    color: #fdbf2d; /* Jeeny's accent color for the dot */
+  }
+  
+  /* --- Heading Styling --- */
+  .login-container h2 {
+    font-size: 28px; /* Larger heading for "Log In" or "Create Account" */
+    color: #333; /* Dark gray for headings */
+    margin-bottom: 25px; /* Space below the heading before the form */
+  }
+  
+  /* --- Form Group Styling (for input fields) --- */
+  .form-group {
+    margin-bottom: 20px; /* Crucial: Space between each input field group (label + input) */
+    text-align: left; /* Align labels and inputs to the left within their group */
+  }
+  
+  .form-group label {
+    display: block; /* Make label take its own line */
+    font-size: 15px; /* Slightly smaller font for labels */
+    color: #555; /* Medium gray for labels */
+    margin-bottom: 8px; /* Space between label and input field */
+    font-weight: bold; /* Make labels stand out */
+  }
+  
+  .form-group input {
+    width: 100%; /* Input fields take full width of their container */
+    padding: 14px; /* Generous padding inside input fields */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded input field corners */
+    font-size: 16px; /* Standard font size for input text */
+    box-sizing: border-box; /* Include padding and border in the input's total width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus effects */
+  }
+  
+  .form-group input:focus {
+    border-color: #fdbf2d; /* Accent color border on focus */
+    box-shadow: 0 0 0 3px rgba(253, 191, 45, 0.2); /* Soft glow effect on focus */
+    outline: none; /* Remove default browser outline */
+  }
+  
+  /* --- Login/Signup Button Styling --- */
+  .login-btn {
+    width: 100%; /* Button takes full width */
+    padding: 15px; /* Generous padding for the button */
+    background-color: #fdbf2d; /* Accent color for the button background */
+    color: #000; /* Black text for strong contrast on the accent color */
+    border: none; /* Remove default button border */
+    border-radius: 8px; /* Rounded button corners */
+    font-size: 18px; /* Larger font size for button text */
+    font-weight: bold; /* Bold text for the button */
+    cursor: pointer; /* Indicate clickable element */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    margin-top: 15px; /* Space above the button from last form group or error */
+  }
+  
+  .login-btn:hover {
+    background-color: #e0a800; /* Darker accent color on hover */
+  }
+  
+  /* --- Error Message Styling --- */
+  .error-message {
+    color: red; /* Standard red color for errors */
+    font-size: 14px;
+    margin-top: 5px; /* Space above error message */
+    margin-bottom: 15px; /* Space below error message */
+    text-align: center; /* Center the error message text */
+  }
+  
+  /* --- Register/Login Link Styling (bottom navigation) --- */
+  .register-link {
+    margin-top: 25px; /* Space above the "Don't have an account?" text */
+    font-size: 15px; /* Font size for this supplementary text */
+    color: #666; /* Slightly lighter gray for this text */
+  }
+  
+  .register-link a {
+    color: #007bff; /* Standard blue link color for the clickable text */
+    text-decoration: none; /* Remove underline by default */
+    font-weight: bold; /* Make the link bold */
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline; /* Add underline on hover for interaction feedback */
+  }
+  
+  /* --- Role Selector Styling (for Signup page) --- */
+  .role-selector {
+    display: flex; /* Use flexbox to arrange radio buttons horizontally */
+    justify-content: center; /* Center the radio buttons */
+    gap: 25px; /* Space between "Rider" and "Driver" options */
+    margin-top: 15px; /* Space below the "I am a:" label */
+    /* margin-bottom is handled by the overall form-group */
+  }
+  
+  .role-selector label {
+    display: flex; /* Align the custom radio button and its text */
+    align-items: center; /* Vertically center them */
+    cursor: pointer; /* Indicate it's clickable */
+    font-weight: normal; /* Override bold from .form-group label for these specific labels */
+    color: #333; /* Darker text for the options */
+    font-size: 16px; /* Slightly larger font for readability */
+  }
+  
+  /* Custom radio button appearance */
+  .role-selector input[type="radio"] {
+    /* Hide default browser radio button */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    width: 20px; /* Size of the custom radio button */
+    height: 20px;
+    border: 2px solid #ccc; /* Default border color */
+    border-radius: 50%; /* Makes it circular */
+    margin-right: 10px; /* Space between the custom radio button and its text */
+    position: relative; /* For positioning the inner dot */
+    transition: border-color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
-}
+  }
+  
+  /* Style for the radio button when it's checked */
+  .role-selector input[type="radio"]:checked {
+    border-color: #fdbf2d; /* Accent color border when checked */
+    background-color: #fdbf2d; /* Accent color background when checked */
+  }
+  
+  /* Inner dot for the checked state */
+  .role-selector input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 10px; /* Size of the inner dot */
+    height: 10px;
+    background-color: #000; /* Dark inner dot for contrast */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the dot */
+  }
+  
+  /* Hover effect on the custom radio button */
+  .role-selector label:hover input[type="radio"] {
+    border-color: #e0a800; /* Darker accent on hover */
+  }
+  .role-selector label:hover input[type="radio"]:checked {
+    background-color: #e0a800; /* Darker accent background on hover when checked */
+  }
+  
+  /* --- Responsive Adjustments --- */
+  @media (max-width: 480px) { /* Adjust breakpoint as needed */
+    .login-container {
+      padding: 30px 25px; /* Reduce padding on very small screens */
+      margin: 15px; /* Ensure some margin even on small screens */
+    }
+    .login-logo {
+      font-size: 38px;
+      margin-bottom: 25px;
+    }
+    .login-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group input {
+      padding: 12px;
+    }
+    .login-btn {
+      padding: 14px;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+    .register-link {
+      margin-top: 20px;
+    }
+    .role-selector {
+      gap: 15px; /* Reduce gap between radio buttons */
+      flex-wrap: wrap; /* Allow wrapping if space is too tight */
+    }
+  }

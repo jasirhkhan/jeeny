@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/pages.css';
 const RequestRide = () => {
   const [pickup, setPickup] = useState('');
   const [dropoff, setDropoff] = useState('');
@@ -53,25 +54,26 @@ const RequestRide = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', padding: '2rem' }}>
+    <div className="page-container">
+      <form className="form-card" onSubmit={handleSubmit}>
+        <h2>Request a Ride</h2>
+        <label>Pickup Location</label>
+        <input onChange={(e) => setPickup(e.target.value)} />
 
-    <form onSubmit={handleSubmit}>
-      <h2>Request a Ride</h2>
-      <label>Pickup Location</label>
-      <input onChange={(e) => setPickup(e.target.value)} />
+        <label>Drop-off Location</label>
+        <input onChange={(e) => setDropoff(e.target.value)} />
 
-      <label>Drop-off Location</label>
-      <input onChange={(e) => setDropoff(e.target.value)} />
+        <label>Ride Type</label>
+        <select onChange={(e) => setRideType(e.target.value)} value={rideType}>
+          <option>Car</option>
+          <option>Bike</option>
+          <option>Rickshaw</option>
+        </select>
 
-      <label>Ride Type</label>
-      <select onChange={(e) => setRideType(e.target.value)} value={rideType}>
-        <option>Car</option>
-        <option>Bike</option>
-        <option>Rickshaw</option>
-      </select>
-
-      <button type="submit" disabled={!userId}>Request</button>
-    </form>
+        <button className="primary-btn" type="submit" disabled={!userId} style={{ marginTop: '1rem' }}>
+          Request
+        </button>
+      </form>
     </div>
   );
 };

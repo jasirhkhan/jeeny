@@ -45,7 +45,7 @@ const Dashboard = () => {
       <div className="dashboard-actions">
         <button className="action-btn" onClick={() => navigate('/reqride')}>Book a Ride</button>
         <button className="action-btn" onClick={() => navigate('/yourrides')}>Your Rides</button>
-        <button className="action-btn">Profile</button>
+        <button className="action-btn" onClick={() => navigate('/profile')}>Profile</button>
       </div>
     </>
   );
@@ -58,7 +58,7 @@ const Dashboard = () => {
       <div className="dashboard-actions">
         <button className="action-btn" onClick={() => navigate('/driver_ride-requests')}>View Ride Requests</button>
         <button className="action-btn" onClick={() => navigate('/driver_completed_rides')}>Your Completed Rides</button>
-        <button className="action-btn">Driver Profile</button>
+        <button className="action-btn" onClick={() => navigate('/profile')}>Driver Profile</button>
       </div>
     </>
   );

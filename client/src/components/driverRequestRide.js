@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/pages.css';
 
 const DriverRequestRide = () => {
   const [rides, setRides] = useState([]);
@@ -100,11 +101,11 @@ const DriverRequestRide = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', padding: '2rem' }}>
+    <div className="page-container">
       <h2>Driver Dashboard</h2>
 
       {activeRide ? (
-        <div style={{ border: '2px solid #007bff', padding: '1rem', backgroundColor: '#fff' }}>
+        <div className="form-card" style={{ border: '2px solid #007bff' }}>
           <h3>Active Ride</h3>
           <p><strong>Ride Type:</strong> {activeRide.rideType}</p>
           <p><strong>From:</strong> {activeRide.pickupLocation}</p>
@@ -119,37 +120,37 @@ const DriverRequestRide = () => {
 
           {activeRide.status === 'Accepted' && (
             <>
-              <button onClick={() => updateRideStatus('In Progress')} style={{ marginRight: '1rem' }}>
+              <button className="primary-btn" onClick={() => updateRideStatus('In Progress')} style={{ marginRight: '1rem' }}>
                 Start Ride
               </button>
-              <button onClick={() => updateRideStatus('Cancelled')} style={{ backgroundColor: '#dc3545', color: 'white' }}>
+              <button className="primary-btn" onClick={() => updateRideStatus('Cancelled')} style={{ backgroundColor: '#dc3545', color: 'white' }}>
                 Cancel Ride
               </button>
             </>
           )}
 
           {activeRide.status === 'In Progress' && (
-            <button onClick={() => updateRideStatus('Completed')} style={{ backgroundColor: 'green', color: 'white' }}>
+            <button className="primary-btn" onClick={() => updateRideStatus('Completed')} style={{ backgroundColor: 'green', color: 'white' }}>
               End Ride
             </button>
           )}
         </div>
       ) : (
-        <div className="driver-ride-requests">
+        <div className="driver-ride-requests form-card">
           <h3>Pending Ride Requests</h3>
           {rides.length === 0 ? (
             <p>No pending rides at the moment.</p>
           ) : (
             <ul>
               {rides.map((ride) => (
-                <li key={ride._id} style={{ border: '1px solid #ccc', marginBottom: '1rem', padding: '1rem' }}>
+                <li key={ride._id} className="list-card">
                   <p><strong>Ride Type:</strong> {ride.rideType}</p>
                   <p><strong>From:</strong> {ride.pickupLocation}</p>
                   <p><strong>To:</strong> {ride.dropoffLocation}</p>
                   {ride.passenger?.username && (
                     <p><strong>Passenger:</strong> {ride.passenger.username}</p>
                   )}
-                  <button onClick={() => handleAccept(ride._id)}>Accept Ride</button>
+                  <button className="primary-btn" onClick={() => handleAccept(ride._id)}>Accept Ride</button>
                 </li>
               ))}
             </ul>

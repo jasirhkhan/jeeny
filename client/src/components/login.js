@@ -1,72 +1,76 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import '../styles/login.css';
+import { useNavigate, Link } from 'react-router-dom';
+import '../styles/login.css'; // Make sure this path is correct
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {
+  const { username, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(''); // Clear error on input change
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/login', {
-        username,
-        password,
-      });
-  
-      localStorage.setItem('token', res.data.token); // store token
-    //   alert('Login successful');
-      navigate('/dashboard'); 
+      const res = await axios.post('http://localhost:3000/login', formData);
+      localStorage.setItem('token', res.data.token);
+      navigate('/dashboard'); // Navigate to dashboard on successful login
     } catch (err) {
-      alert(err.response?.data?.msg || 'Login failed');
+      console.error('Login failed:', err);
+      setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
     }
   };
-  
 
   return (
-    <div className="login-page">
-      <div className="login-header">Management <span className="lib-name">System</span></div>
-      <div className="partition"></div>
-      <form className="form" onSubmit={handleLogin}>
-        <div>
+    // This is the key: Ensure the top-level div has the class "login-container"
+    <div className="login-container">
+      {/* Use the "login-logo" class for consistent branding */}
+      <div className="login-logo">Jeeny<span className="dot">.</span></div>
+      <h2>Log In</h2> {/* Use standard H2 for consistent heading style */}
+      <form onSubmit={handleSubmit}>
+        {/* Wrap each input in a "form-group" for consistent spacing and label alignment */}
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
           <input
-            className="user-inp"
             type="text"
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
+            id="username"
+            name="username" // Important for `handleChange`
+            value={username}
+            onChange={handleChange}
+            required
+            placeholder="Enter your username"
           />
         </div>
-        <div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
-            className="pass-inp"
             type="password"
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            name="password" // Important for `handleChange`
+            value={password}
+            onChange={handleChange}
+            required
+            placeholder="Enter your password"
           />
         </div>
-        <div>
-          <button className="sub-button">Login</button>
-        </div>
+        {/* Display error messages using the "error-message" class */}
+        {error && <p className="error-message">{error}</p>}
+        {/* Use the "login-btn" class for consistent button styling */}
+        <button type="submit" className="login-btn">Log In</button>
       </form>
-
-      <div className="question">
-        Don't have an account?
-        <button
-          onClick={() => navigate('/signup')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'blue',
-            cursor: 'pointer',
-            marginLeft: '5px',
-            textDecoration: 'underline'
-          }}
-        >
-          Signup
-        </button>
-      </div>
+      {/* Use the "register-link" class for consistent navigation link styling */}
+      <p className="register-link">
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+      </p>
     </div>
   );
 };

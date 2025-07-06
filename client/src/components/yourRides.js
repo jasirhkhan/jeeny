@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/pages.css';
 
 const YourRides = () => {
   const [rides, setRides] = useState([]);
@@ -46,9 +47,9 @@ const YourRides = () => {
   }, [navigate]);
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', padding: '2rem' }}>
+    <div className="page-container">
 
-    <div className="your-rides-container">
+    <div className="your-rides-container form-card">
       <h2>Your Ride History</h2>
       {loading ? (
         <p>Loading...</p>
@@ -57,7 +58,7 @@ const YourRides = () => {
       ) : (
         <ul>
           {rides.map((ride) => (
-            <li key={ride._id}>
+            <li key={ride._id} className="list-card">
               <strong>{ride.rideType}</strong> ride from <em>{ride.pickupLocation}</em> to <em>{ride.dropoffLocation}</em><br />
               Status: {ride.status} <br />
               Date: {new Date(ride.requestedAt).toLocaleString()}
@@ -65,7 +66,7 @@ const YourRides = () => {
           ))}
         </ul>
       )}
-      <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
+      <button className="primary-btn" onClick={() => navigate('/dashboard')} style={{ marginTop: '1rem' }}>Back to Dashboard</button>
     </div>
     </div>
 

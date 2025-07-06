@@ -74,7 +74,6 @@ export const updateRideStatus = async (req, res) => {
     const ride = await Ride.findById(req.params.rideId);
     if (!ride) return res.status(404).json({ msg: 'Ride not found' });
     ride.status = status;
-    console.log(ride)
     await ride.save();
 
     res.json({ msg: 'Status updated', ride });

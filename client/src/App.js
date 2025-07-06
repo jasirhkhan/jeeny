@@ -8,6 +8,7 @@ import RequestRide from './components/requestRide';
 import YourRides from './components/yourRides';
 import DriverRequestRide from './components/driverRequestRide';
 import DriverCompletedRides from './components/driverCompletedRide'
+import Profile from './components/profile';
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/yourrides" element={<YourRides />} />
           <Route path="/driver_ride-requests" element={<DriverRequestRide />} />
           <Route path="/driver_completed_rides" element={<DriverCompletedRides />} />
+          <Route path="/profile" element={<Profile />} />
 
         </Routes>
       </BrowserRouter>

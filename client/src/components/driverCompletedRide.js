@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/pages.css';
 
 
 const DriverCompletedRides = () => {
@@ -32,22 +33,24 @@ const DriverCompletedRides = () => {
   if (loading) return <p>Loading your completed rides...</p>;
 
   return (
-    <div className="dashboard-container">
-      <h2>Your Completed Rides</h2>
-      {rides.length === 0 ? (
-        <p>No completed rides yet.</p>
-      ) : (
-        <ul className="ride-list">
-          {rides.map((ride) => (
-            <li key={ride._id} className="ride-card">
-              <p><strong>From:</strong> {ride.pickupLocation}</p>
-              <p><strong>To:</strong> {ride.dropoffLocation}</p>
-              <p><strong>Passenger:</strong> {ride.passenger?.username || 'N/A'}</p>
-              <p><strong>Requested At:</strong> {new Date(ride.requestedAt).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="page-container">
+      <div className="form-card">
+        <h2>Your Completed Rides</h2>
+        {rides.length === 0 ? (
+          <p>No completed rides yet.</p>
+        ) : (
+          <ul className="ride-list">
+            {rides.map((ride) => (
+              <li key={ride._id} className="list-card">
+                <p><strong>From:</strong> {ride.pickupLocation}</p>
+                <p><strong>To:</strong> {ride.dropoffLocation}</p>
+                <p><strong>Passenger:</strong> {ride.passenger?.username || 'N/A'}</p>
+                <p><strong>Requested At:</strong> {new Date(ride.requestedAt).toLocaleString()}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
